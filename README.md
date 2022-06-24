@@ -15,5 +15,11 @@ Updating Contacts
 <br />
 Deleting Contacts
 <img width="1247" alt="image" src="https://user-images.githubusercontent.com/83634457/175544606-48cd0eb9-8593-4786-b56f-4c81622b1652.png">
+<img width="1254" alt="image" src="https://user-images.githubusercontent.com/83634457/175544873-cb95b2d8-cb38-42be-ac85-74cd4efd9ea4.png">
+<br />
+Searching Users
+<img width="1248" alt="image" src="https://user-images.githubusercontent.com/83634457/175544971-1c5d3f01-2d44-412f-9e69-97622aedd767.png">
+
+
 
 
