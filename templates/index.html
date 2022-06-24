@@ -149,12 +149,17 @@ font-weight:700
                         <div class="table-responsive">
                             <table class="table m-0">
                                 <thead>
-                                    <tr>
+                                    <!-- <tr>
                                         <input type="search" class="form-control" id="datatable-search-input" placeholder="Search">
-                                    </tr>
+                                    </tr> -->
+                                    <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names..">
                                 </thead>
-                                <tbody>
+                                <tbody id="myTable">
                                 {% set count = [] %}
+                                {% if len == 0 %}
+                                    <tr><th style="font-weight: 500;" scope="row">No Contacts <br>
+                                    Please add some to begin with</th></tr>
+                                    {% else %}
                                 {% for log in data %}
                                     {% set __ = count.append(1) %}
                                     <tr>
@@ -181,6 +186,7 @@ font-weight:700
                                         </td>
                                     </tr>
                                  {% endfor %}
+                                 {% endif %}
 
                                 </tbody>
                             </table>
@@ -199,7 +205,7 @@ font-weight:700
                     <div>
                     <input type = "text" name="fname" placeholder="First Name" required>
                     <input type = "text" name="lname" placeholder="Last Name">
-                    <input type = "text" name="phone" placeholder="Mobile No" required>
+                    <input type = "text" maxlength="10" name="phone" placeholder="Mobile No" required>
                 <!-- <input class="btn" type="submit" value="submit" onclick="uptdata({{ count|length }})"  -->
                 <input class="btn" type="submit" value="submit" onclick="flashmessage('Added')">
                     </div>
@@ -226,6 +232,27 @@ font-weight:700
 {{sucess}}
     <script>
         div_hide(2)
+        function search() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
         function flashmessage(msg){
             alert(`${msg} Successfully`)
         }
