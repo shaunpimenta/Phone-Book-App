@@ -125,7 +125,17 @@ font-weight:700
     <br>
     <br>
 <section class="pb-5 header text-center">
-    
+    {% if base=="True" %}
+    <center>
+    <form style="border:none" action="{{url_for('created')}}" ,type="post">
+        <h3 style="font-size:26px;
+font-family:raleway">No existing databases identified <br> Create one to start</h3>
+        <br>
+        <button  type="submit"  class="btn btn-primary">Create Database</button>
+    </form>
+    </center>
+
+    {% else %}
     <div class="container py-5 text-white">
         <div>
             <div class="container">
@@ -144,7 +154,6 @@ font-weight:700
               </div>
         </div> 
         <br>
-
         <div class="row">
             <div class="col-lg-7 mx-auto">
                 <div class="card border-0 shadow">
@@ -204,7 +213,7 @@ font-weight:700
     </div>
     <div id="abc1">
         <div id="popupContact">
-            <form method="post" action="{{url_for('addcontacts')}}">
+            <form method="post", action="{{url_for('addcontacts')}}">
                 <img id="close" style="background-color: white; border-radius: 100%; padding: 2px;" height="17px",width="17px" src="../static/cross.png" onclick ="div_hide(2)">
                     <p>Please enter the following details</p>
                     <div>
@@ -238,6 +247,7 @@ font-weight:700
 
 </section>
 {{sucess}}
+    {% endif %}
     <script>
         div_hide(2)
         function search() {
@@ -315,7 +325,7 @@ document.getElementById(id).style.display = "none";
 
     function gprompt(id){
         // prompt()
-        let confirmAction = confirm("Are you sure to execute this action?");
+        let confirmAction = confirm("Are you want to delete this contact ?");
         // let confirmac=comfirm("Do you want to delete this contact");
         if (confirmAction){
             getdata(id)
