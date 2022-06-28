@@ -1,9 +1,23 @@
 import sqlite3
+import sys
+
 from flask import Flask, render_template, request, redirect, url_for
+from pathlib import Path
 app = Flask(__name__)
 temp = None
 dict = {'First Name': 'fname', 'Last Name': 'lname', 'Mobile Number': 'mobile'}
 
+def createdatabase():
+    try:
+        sqliteConnection = sqlite3.connect('PhoneBook.db')
+        cursor = sqliteConnection.cursor()
+        createtable="create table Phonebook(fname TEXT NOT NULL,lname TEXT,mobile INT(10) UNIQUE)"
+        cursor.execute(createtable)
+        cursor.close()
+        sqliteConnection.commit()
+        print("Done")
+    except sqlite3.Error as error:
+        print("Failed due to", error)
 
 def createuser(fname, lname, phone):
     try:
@@ -60,8 +74,19 @@ def fetchdata():
 def Main():
     @app.route('/', methods=['GET', 'POST'])
     def index():
-        data = fetchdata()
-        return render_template('index.html', data=data)
+        # base="False"
+        file = Path("PhoneBook.db")
+        if not file.is_file():
+            return render_template('index.html',data=[],base="True",len=0)
+        else:
+            data = fetchdata()
+            return render_template('index.html', data=data,len=len(data))
+
+    @app.route('/create')
+    def created():
+        createdatabase()
+        print("Hi")
+        return redirect(url_for('index'))
 
     @app.route('/addcontact', methods=['GET', 'POST'])
     def addcontacts():
@@ -108,4 +133,5 @@ def Main():
 
 
 if __name__ == '__main__':
+    from pathlib import Path
     Main()
